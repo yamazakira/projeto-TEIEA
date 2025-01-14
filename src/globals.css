@@ -121,6 +121,13 @@ html {
 .postDados {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 1rem;
     padding-top: 0.5rem;
+}
+
+.postLikes, .postComents {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

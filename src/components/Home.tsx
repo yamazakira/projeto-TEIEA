@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '../api/axiosInstance';
 import '../globals.css';
+import { HeartIcon, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 
 const Home = () => {
     const [postagens, setPostagens] = useState([]);
@@ -46,7 +47,7 @@ const Home = () => {
             {postagens
                 .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                 .map((post: any) => {
-                    
+
                 const user = getUserById(post.userId);
                 return (
                     <div key={post.id} className='postIndividual'>
@@ -64,8 +65,14 @@ const Home = () => {
                             <h3 className='postTitulo'>{post.title}</h3>
                             <p className='postDesc'>{post.description}</p>
                             <div className='postDados'>
-                                <p className='postLikes'>Likes: {post.likes}</p>
-                                <p className='postComent'>Comentários: {post.likes}</p>
+                                <div className='postLikes'>
+                                    <HeartIcon style={{ height: 24, width: 24 }}/>
+                                    <p>{post.likes}</p>
+                                </div>
+                                <div className='postComents'>
+                                    <ChatBubbleOvalLeftIcon style={{ height: 24, width: 24 }}/>
+                                    <p>{post.likes}</p>
+                                </div>
                             </div>
                             
                     </div>
