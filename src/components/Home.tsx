@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { api } from '../api/axiosInstance';
 import '../globals.css';
 import { HeartIcon, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
+import textToSpeech from './tts';
 
 const Home = () => {
     const [postagens, setPostagens] = useState([]);
@@ -41,6 +42,18 @@ const Home = () => {
         //console.log(users);
     }, []);
 
+    interface TextToSpeechButtonProps {
+        text: string;
+    }
+
+    const TextToSpeechButton: React.FC<TextToSpeechButtonProps> = ({ text }) => {
+        return (
+            <button onClick={() => textToSpeech(text)}>
+                Ouvir
+            </button>
+        );
+    };
+
     return (
 
         <div className='feedPosts'>
@@ -48,9 +61,9 @@ const Home = () => {
                 .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                 .map((post: any) => {
 
-                const user = getUserById(post.userId);
-                return (
-                    <div key={post.id} className='postIndividual'>
+                    const user = getUserById(post.userId);
+                    return (
+                        <div key={post.id} className='postIndividual'>
                             <div className='flex userInfo'>
                                 {user && user.avatar && (
                                     <img
@@ -62,22 +75,30 @@ const Home = () => {
                                 <p className=''>{user ? user.name : 'Unknown User'}</p>
                             </div>
 
-                            <h3 className='postTitulo'>{post.title}</h3>
-                            <p className='postDesc'>{post.description}</p>
+                            <div className='postConteudo'>
+                                <div className='postTitulo'>
+                                    <h3 className=''>{post.title}</h3>
+                                    <TextToSpeechButton text={post.title} />
+                                </div>
+                                <div className='postDesc'>
+                                    <p className=''>{post.description}</p>
+                                    <TextToSpeechButton text={post.description} />
+                                </div>
+                            </div>
                             <div className='postDados'>
                                 <div className='postLikes'>
-                                    <HeartIcon style={{ height: 24, width: 24 }}/>
+                                    <HeartIcon style={{ height: 24, width: 24 }} />
                                     <p>{post.likes}</p>
                                 </div>
                                 <div className='postComents'>
-                                    <ChatBubbleOvalLeftIcon style={{ height: 24, width: 24 }}/>
+                                    <ChatBubbleOvalLeftIcon style={{ height: 24, width: 24 }} />
                                     <p>{post.likes}</p>
                                 </div>
                             </div>
-                            
-                    </div>
-                );
-            })}
+
+                        </div>
+                    );
+                })}
         </div>
 
     )
