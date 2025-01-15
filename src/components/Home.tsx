@@ -7,7 +7,9 @@ import textToSpeech from './tts';
 const Home = () => {
     const [postagens, setPostagens] = useState([]);
     // const [postagem, setPostagem] = useState([]);
-    const [users, setUsers] = useState<any[]>([]); // Store users info here
+    const [users, setUsers] = useState<any[]>([]);
+    localStorage.setItem('userIdLogado', '1');
+    const userIdLogado = localStorage.getItem('userIdLogado');
 
     const getPostagens = async () => {
         try {
@@ -23,7 +25,7 @@ const Home = () => {
     const getUsers = async (posts: any[]) => {
         try {
             const userIds = Array.from(new Set(posts.map(post => post.userId)));
-            console.log(userIds);
+            //console.log(userIds);
 
             const userResponses = await Promise.all(userIds.map((userId: any) => api.get(`/user/${userId}`)));
             const usersData = userResponses.map(response => response.data);
@@ -54,15 +56,28 @@ const Home = () => {
         );
     };
 
+    const excluirPost = (postId: any, postUserId: any) => {
+        if (postId) {
+            api.delete(`/user/${postUserId}/post/${postId}`, {
+            })
+                .then(() => {
+                    alert("Post excluído com sucesso!");
+                    getPostagens();
+                });
+        }
+    };
+
     return (
 
         <div className='feedPosts'>
             {postagens
                 .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                 .map((post: any) => {
-
+                    console.log('post userId: ', post.userId)
+                    console.log('usuarioIdLogado: ', userIdLogado)
                     const user = getUserById(post.userId);
                     return (
+
                         <div key={post.id} className='postIndividual'>
                             <div className='flex userInfo'>
                                 {user && user.avatar && (
@@ -73,6 +88,8 @@ const Home = () => {
                                     />
                                 )}
                                 <p className=''>{user ? user.name : 'Unknown User'}</p>
+
+
                             </div>
 
                             <div className='postConteudo'>
@@ -93,6 +110,12 @@ const Home = () => {
                                 <div className='postComents'>
                                     <ChatBubbleOvalLeftIcon style={{ height: 24, width: 24 }} />
                                     <p>{post.likes}</p>
+                                </div>
+                                <div className='excluirPost'>
+                                    {post.userId === userIdLogado && (
+                                        <button
+                                            onClick={() => excluirPost(post.id, post.userId)}>Excluir Post</button>
+                                    )}
                                 </div>
                             </div>
 

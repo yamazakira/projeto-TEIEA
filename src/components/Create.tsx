@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
+  const [postagens, setPostagens] = useState([]);
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  
-  // State for the post
+
+
   const [post, setPost] = useState<{
     title: string;
     description: string;
@@ -36,9 +37,9 @@ const Create = () => {
     stopListening: stopListening2,
   } = useSpeechRecognition();
 
-  // Sync text1 and text2 with post.title and post.description respectively
+
   useEffect(() => {
-    // Update post state when text1 changes (voice input for title)
+
     setPost((prevPost) => ({
       ...prevPost,
       title: text1,
@@ -48,7 +49,7 @@ const Create = () => {
   }, [text1]);
 
   useEffect(() => {
-    // Update post state when text2 changes (voice input for description)
+
     setPost((prevPost) => ({
       ...prevPost,
       description: text2,
@@ -57,7 +58,7 @@ const Create = () => {
     console.log(post)
   }, [text2]);
 
-  // Handle manual input change for title
+
   const handleInputChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setPost((prevPost) => ({
@@ -68,7 +69,7 @@ const Create = () => {
     console.log(post)
   };
 
-  // Handle manual input change for description
+
   const handleInputChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setPost((prevPost) => ({
@@ -79,7 +80,6 @@ const Create = () => {
     console.log(post)
   };
 
-  // Fetch users (for the user selection dropdown, if needed)
   useEffect(() => {
     const buscarUsuarios = async () => {
       try {
@@ -93,18 +93,42 @@ const Create = () => {
     buscarUsuarios();
   }, []);
 
-  // Handle post submission
+  const getUsers = async (posts: any[]) => {
+    try {
+      const userIds = Array.from(new Set(posts.map(post => post.userId)));
+      //console.log(userIds);
+
+      const userResponses = await Promise.all(userIds.map((userId: any) => api.get(`/user/${userId}`)));
+      const usersData = userResponses.map(response => response.data);
+      setUsers(usersData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getPostagens = async () => {
+    try {
+      const response = await api.get("post");
+      const data = response.data;
+      setPostagens(data);
+      getUsers(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const criarPost = (event: React.FormEvent) => {
-    event.preventDefault(); // Prevent form submission default behavior
+    event.preventDefault();
     navigate('/');
     api.post('post', post)
       .then(() => {
         console.log(post);
-        alert('Post created successfully!');
+        alert('Post criado com sucesso');
+        getPostagens();
       })
       .catch((error) => {
-        console.log('Error creating post:', error);
-        alert('Error creating post.');
+        console.log('Erro:', error);
+        alert('Erro ao criar post.');
       });
   };
 
@@ -173,7 +197,7 @@ const Create = () => {
             </button>
           </div>
         </div>
-        
+
         <div id="botoes" style={{ marginTop: '20px' }}>
           <button type="submit">Postar</button>
           <Link to="/">
