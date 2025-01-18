@@ -11,6 +11,23 @@ const Home = () => {
     localStorage.setItem('userIdLogado', '1');
     const userIdLogado = localStorage.getItem('userIdLogado');
 
+    // TAMANHO DAS LETRAS
+    const [fontSizeP, setFontSizeP] = useState<number>(16);
+    const [fontSizeTitle, setFontSizeTitle] = useState<number>(20);
+    const increaseFontSize = () => {
+        setFontSizeP(prevSize => prevSize + 2);
+        setFontSizeTitle(prevSize => prevSize + 2);
+    };
+    const decreaseFontSize = () => {
+        setFontSizeP(prevSize => prevSize - 2);
+        setFontSizeTitle(prevSize => prevSize - 2);
+    };
+    const resetFontSize = () => {
+        setFontSizeP(16);
+        setFontSizeTitle(20);
+    };
+
+    // OBTER POSTS
     const getPostagens = async () => {
         try {
             const response = await api.get("post");
@@ -22,6 +39,7 @@ const Home = () => {
         }
     };
 
+    // OBTER USUARIOS
     const getUsers = async (posts: any[]) => {
         try {
             const userIds = Array.from(new Set(posts.map(post => post.userId)));
@@ -35,19 +53,19 @@ const Home = () => {
         }
     };
 
+    // USUARIO POR ID
     const getUserById = (userId: any) => {
         return users.find((user: any) => user.id === userId);
     };
-
     useEffect(() => {
         getPostagens();
         //console.log(users);
     }, []);
 
+    // CONVERSÃO TEXTO PARA FALA
     interface TextToSpeechButtonProps {
         text: string;
     }
-
     const TextToSpeechButton: React.FC<TextToSpeechButtonProps> = ({ text }) => {
         return (
             <button onClick={() => textToSpeech(text)}>
@@ -66,10 +84,11 @@ const Home = () => {
                 });
         }
     };
-
     return (
-
         <div className='feedPosts'>
+            <button onClick={increaseFontSize}>Aumentar letras</button>
+            <button onClick={decreaseFontSize}>Diminuir letras</button>
+            <button onClick={resetFontSize}>Resetar</button>
             {postagens
                 .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                 .map((post: any) => {
@@ -87,18 +106,21 @@ const Home = () => {
                                         style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }}
                                     />
                                 )}
-                                <p className=''>{user ? user.name : 'Unknown User'}</p>
+                                <p className=''
+                                    style={{ fontSize: `${fontSizeP}px` }}>{user ? user.name : 'Unknown User'}</p>
 
 
                             </div>
 
                             <div className='postConteudo'>
                                 <div className='postTitulo'>
-                                    <h3 className=''>{post.title}</h3>
+                                    <h3 className=''
+                                        style={{ fontSize: `${fontSizeTitle}px` }}>{post.title}</h3>
                                     <TextToSpeechButton text={post.title} />
                                 </div>
                                 <div className='postDesc'>
-                                    <p className=''>{post.description}</p>
+                                    <p className=''
+                                        style={{ fontSize: `${fontSizeP}px` }}>{post.description}</p>
                                     <TextToSpeechButton text={post.description} />
                                 </div>
                             </div>

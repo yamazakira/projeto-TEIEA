@@ -45,7 +45,7 @@ const Create = () => {
       title: text1,
     }));
 
-    console.log(post)
+    //log(post)
   }, [text1]);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Create = () => {
       description: text2,
     }));
 
-    console.log(post)
+    //console.log(post)
   }, [text2]);
 
 
@@ -66,7 +66,7 @@ const Create = () => {
       title: value,
     }));
 
-    console.log(post)
+    //console.log(post)
   };
 
 
@@ -77,7 +77,7 @@ const Create = () => {
       description: value,
     }));
 
-    console.log(post)
+    //console.log(post)
   };
 
   useEffect(() => {
@@ -122,7 +122,7 @@ const Create = () => {
     navigate('/');
     api.post('post', post)
       .then(() => {
-        console.log(post);
+        //console.log(post);
         alert('Post criado com sucesso');
         getPostagens();
       })
