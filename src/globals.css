@@ -1,4 +1,3 @@
-/* Reset some default styles */
 * {
     margin: 0;
     padding: 0;
@@ -9,97 +8,117 @@ body,
 html {
     height: 100%;
     font-family: Arial, sans-serif;
+    font-size: 1rem;
 }
 
-/* Container for the app layout */
+:root {
+    --background-light: #f4f7f6;
+    --background-dark: #000000;
+    --text-light: #333;
+    --text-dark: #ffffff;
+    --sidebar-bg-light: #e0e0e0;
+    --sidebar-bg-dark: #111111;
+    --button-bg-light: #4caf50;
+    --button-bg-dark: #ff0000;
+    --button-hover-light: #388e3c;
+    --button-hover-dark: #ff4500;
+    --highlight: #ffff00;
+}
+
+body {
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body[data-theme='dark'] {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
 .app-container {
     display: flex;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    padding: 20px;
+    padding: 1.3rem;
+
 }
 
-.sidebar-right {
-    width: 200px;
-    background-color: #f1f1f1;
-    padding: 20px;
+.sidebar-right,
+.sidebar-left {
+    width: 12rem;
+    height: auto;
+    padding: 1.3rem;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
     align-items: center;
+    background-color: var(--sidebar-bg-light);
+    transition: background-color 0.3s;
 }
 
-/* Search bar */
-.search-bar {
-    width: 100%;
-    height: 2em;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+body[data-theme='dark'] .sidebar-right,
+body[data-theme='dark'] .sidebar-left {
+    background-color: var(--sidebar-bg-dark);
 }
 
-/* Feed Container */
 .feed-container {
     flex: 1;
     max-width: 40rem;
     min-width: 20rem;
-    /* Makes the feed smaller */
-    background-color: #fafafa;
-    padding: 20px;
+    background-color: var(--background-light);
+    padding: 1.3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 0.6rem;
+    transition: background-color 0.3s;
 }
 
-/* Header above the feed */
+body[data-theme='dark'] .feed-container {
+    background-color: var(--background-dark);
+}
+
 .app-header {
     width: 100%;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 .app-title {
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: bold;
-    color: #333;
+    color: var(--text-light);
+    transition: color 0.3s;
 }
 
-.divider {
-    width: 60%;
-    height: 3px;
-    background-color: #007bff;
-    margin: 10px auto;
+body[data-theme='dark'] .app-title {
+    color: var(--highlight);
 }
 
-/* Right Sidebar */
-.sidebar-left {
-    width: 200px;
-    background-color: #f1f1f1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-}
-
-/* Buttons */
 .nav-button {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
+    padding: 1rem;
+    font-size: 1rem;
     border: none;
-    background-color: #007bff;
+    background-color: var(--button-bg-light);
     color: white;
-    border-radius: 5px;
+    border-radius: 0.3rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .nav-button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-light);
+}
+
+body[data-theme='dark'] .nav-button {
+    background-color: var(--button-bg-dark);
+}
+
+body[data-theme='dark'] .nav-button:hover {
+    background-color: var(--button-hover-dark);
 }
 
 .feedPosts {
@@ -107,16 +126,14 @@ html {
 }
 
 .postIndividual {
-    /* background: lightgray; */
     margin-bottom: 2em;
 }
 
 .userInfo {
-    /* background-color: gray; */
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
 }
 
 .postConteudo {
@@ -128,7 +145,7 @@ html {
 .postDesc {
     display: grid;
     grid-template-columns: 7fr 1fr;
-    padding: 0 0 0.5rem 0 ;
+    padding: 0 0 0.3rem 0;
 }
 
 .postDados {
@@ -136,7 +153,6 @@ html {
     flex-direction: row;
     align-items: center;
     gap: 1rem;
-    /* padding-top: 0.5rem; */
 }
 
 .postLikes,
@@ -144,4 +160,30 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+.buttonsContainer {
+    margin-bottom: 1rem;
+}
+button {
+    padding: 0.4rem;  
+    font-size: 16;
+    margin: 0.1rem;
+    border: none;
+    background-color: var(--button-bg-light);
+    color: white;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--button-hover-light);
+}
+
+body[data-theme='dark'] button {
+    background-color: var(--button-bg-dark);
+}
+
+body[data-theme='dark'] button:hover {
+    background-color: var(--button-hover-dark);
 }

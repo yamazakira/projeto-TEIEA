@@ -74,6 +74,7 @@ const Home = () => {
         );
     };
 
+    // ExCLUIR POST
     const excluirPost = (postId: any, postUserId: any) => {
         if (postId) {
             api.delete(`/user/${postUserId}/post/${postId}`, {
@@ -86,9 +87,12 @@ const Home = () => {
     };
     return (
         <div className='feedPosts'>
-            <button onClick={increaseFontSize}>Aumentar letras</button>
-            <button onClick={decreaseFontSize}>Diminuir letras</button>
-            <button onClick={resetFontSize}>Resetar</button>
+            <div className="buttonsContainer">
+                <button onClick={increaseFontSize}>Aumentar fonte</button>
+                <button onClick={decreaseFontSize}>Diminuir fonte</button>
+                <button onClick={resetFontSize}>Resetar fonte</button>
+            </div>
+
             {postagens
                 .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                 .map((post: any) => {
