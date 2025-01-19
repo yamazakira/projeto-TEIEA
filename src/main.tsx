@@ -4,6 +4,7 @@ import App from "./App";
 import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./paginas/Home";
 import Create from "./paginas/Create";
+import PostPage from "./paginas/postPage";
 import useSpeechRecognition from "./paginas/useSpeechRecognition";
 
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             {
                 path: "/createpost",
                 element: <Create />,
+            },
+            {
+                path: "/post/:id",
+                element: <PostPage />,
             },
         ],
     },

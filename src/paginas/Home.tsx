@@ -3,6 +3,7 @@ import { api } from '../api/axiosInstance';
 import '../globals.css';
 import { HeartIcon, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import textToSpeech from './tts';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [postagens, setPostagens] = useState([]);
@@ -116,18 +117,32 @@ const Home = () => {
 
                             </div>
 
+
                             <div className='postConteudo'>
-                                <div className='postTitulo'>
-                                    <h3 className=''
-                                        style={{ fontSize: `${fontSizeTitle}px` }}>{post.title}</h3>
+                                <Link to={`/post/${post.id}`} className='postClicavel'
+                                onClick={() => localStorage.setItem('usuarioDoPost', post.userId)}>
+                                    <div className='postTextWrapper'>
+                                        <div className='postTitulo'>
+                                            <h3 className='' style={{ fontSize: `${fontSizeTitle}px` }}>
+                                                {post.title}
+                                            </h3>
+                                        </div>
+                                        <div className='postDesc'>
+                                            <p className='' style={{ fontSize: `${fontSizeP}px` }}>
+                                                {post.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </Link>
+
+                                <div className='postTTSButtons'>
                                     <TextToSpeechButton text={post.title} />
-                                </div>
-                                <div className='postDesc'>
-                                    <p className=''
-                                        style={{ fontSize: `${fontSizeP}px` }}>{post.description}</p>
                                     <TextToSpeechButton text={post.description} />
                                 </div>
                             </div>
+
+
+
                             <div className='postDados'>
                                 <div className='postLikes'>
                                     <HeartIcon style={{ height: 24, width: 24 }} />

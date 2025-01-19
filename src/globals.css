@@ -136,9 +136,18 @@ body[data-theme='dark'] .nav-button:hover {
     padding-bottom: 0.3rem;
 }
 
+.postClicavel {
+    text-decoration: none;
+    color: inherit;  
+}
+
 .postConteudo {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 7fr 1fr;
+    align-items: flex-start; /* Adjusts alignment vertically */
+    width: 100%;
+    text-decoration: none;;
 }
 
 .postTitulo,
@@ -186,4 +195,9 @@ body[data-theme='dark'] button {
 
 body[data-theme='dark'] button:hover {
     background-color: var(--button-hover-dark);
+}
+
+.postTTSButtons {
+    display: flex;
+    flex-direction: column;
 }
