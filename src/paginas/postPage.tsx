@@ -100,6 +100,10 @@ const PostPage = () => {
 
     const user = getUserById(post.userId);
 
+    if (!user) {
+        return <p>Carregando informações do usuário...</p>;
+    }
+
     return (
         <div className='feedPosts'>
             <div className="buttonsContainer">

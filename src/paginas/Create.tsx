@@ -93,25 +93,25 @@ const Create = () => {
     buscarUsuarios();
   }, []);
 
-  // const getUsers = async (posts: any[]) => {
-  //   try {
-  //     const userIds = Array.from(new Set(posts.map(post => post.userId)));
-  //     //console.log(userIds);
+  const getUsers = async (posts: any[]) => {
+    try {
+      const userIds = Array.from(new Set(posts.map(post => post.userId)));
+      //console.log(userIds);
 
-  //     const userResponses = await Promise.all(userIds.map((userId: any) => api.get(`/user/${userId}`)));
-  //     const usersData = userResponses.map(response => response.data);
-  //     setUsers(usersData);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+      const userResponses = await Promise.all(userIds.map((userId: any) => api.get(`/user/${userId}`)));
+      const usersData = userResponses.map(response => response.data);
+      //setUsers(usersData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const getPostagens = async () => {
     try {
       const response = await api.get("post");
       const data = response.data;
       setPostagens(data);
-      // getUsers(data);
+      getUsers(data);
     } catch (error) {
       console.log(error);
     }
