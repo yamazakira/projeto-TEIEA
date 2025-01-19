@@ -119,7 +119,7 @@ const Create = () => {
 
   const criarPost = (event: React.FormEvent) => {
     event.preventDefault();
-    navigate('/');
+    navigate('/home');
     api.post('post', post)
       .then(() => {
         //console.log(post);
@@ -200,7 +200,7 @@ const Create = () => {
 
         <div id="botoes" style={{ marginTop: '20px' }}>
           <button type="submit">Postar</button>
-          <Link to="/">
+          <Link to="/home">
             <button type="button">Cancelar</button>
           </Link>
         </div>

@@ -6,15 +6,20 @@ import Home from "./paginas/Home";
 import Create from "./paginas/Create";
 import PostPage from "./paginas/postPage";
 import useSpeechRecognition from "./paginas/useSpeechRecognition";
+import LandingPage from "./paginas/LandingPage";
 
 const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <LandingPage />,
+    },
     {
         path: "/",
         element: <App />,
         // errorElement: <ErrorPage />,
         children: [
             {
-                path: "/",
+                path: "/home",
                 element: <Home />,
             },
             {

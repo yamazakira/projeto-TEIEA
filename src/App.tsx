@@ -20,14 +20,15 @@ const App = () => {
     <ThemeProvider>
       <div className="app-container">
         <div div className="sidebar-left" >
-          <Link to='/' className='nav-button'>Home</Link>
+          <Link to='/home' className='nav-button'>Home</Link>
           <button className="nav-button">Perfil</button>
           <button className="nav-button">Configurações</button>
+          <Link to='/' className='nav-button'>Sair</Link>
           
         </div>
         <main className="feed-container">
           <div className="app-header">
-            <h1 className="app-title">Rede social linda cheirosa</h1>
+            <h1 className="app-title">ViverJuntos</h1>
           </div>
           <Outlet />
         </main>

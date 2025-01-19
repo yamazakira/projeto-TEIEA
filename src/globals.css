@@ -19,10 +19,15 @@ html {
     --sidebar-bg-light: #e0e0e0;
     --sidebar-bg-dark: #111111;
     --button-bg-light: #4caf50;
-    --button-bg-dark: #ff0000;
-    --button-hover-light: #388e3c;
-    --button-hover-dark: #ff4500;
+    --button-bg-dark: #00ffff;
+    --button-hover-light: #2a772d;
+    --button-hover-dark: #00bcd4;
     --highlight: #ffff00;
+    --high-contrast-bg: #000000;
+    --high-contrast-text: #ffffff;
+    --high-contrast-button-bg: #00ffff;
+    --high-contrast-button-hover: #00e5ff;
+    --high-contrast-button-text: #000000;
 }
 
 body {
@@ -36,13 +41,17 @@ body[data-theme='dark'] {
     color: var(--text-dark);
 }
 
+body[data-theme='light'] {
+    background-color: var(--background-light);
+    color: var(--text-light);
+}
+
 .app-container {
     display: flex;
     justify-content: center;
     height: 100%;
     width: 100%;
     padding: 1.3rem;
-
 }
 
 .sidebar-right,
@@ -98,6 +107,9 @@ body[data-theme='dark'] .app-title {
 }
 
 .nav-button {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
     width: 100%;
     padding: 1rem;
     font-size: 1rem;
@@ -115,6 +127,7 @@ body[data-theme='dark'] .app-title {
 
 body[data-theme='dark'] .nav-button {
     background-color: var(--button-bg-dark);
+    color: var(--high-contrast-button-text);
 }
 
 body[data-theme='dark'] .nav-button:hover {
@@ -145,9 +158,9 @@ body[data-theme='dark'] .nav-button:hover {
     display: grid;
     justify-content: space-between;
     grid-template-columns: 7fr 1fr;
-    align-items: flex-start; /* Adjusts alignment vertically */
+    align-items: flex-start;
     width: 100%;
-    text-decoration: none;;
+    text-decoration: none;
 }
 
 .postTitulo,
@@ -170,9 +183,11 @@ body[data-theme='dark'] .nav-button:hover {
     flex-direction: row;
     align-items: center;
 }
+
 .buttonsContainer {
     margin-bottom: 1rem;
 }
+
 button {
     padding: 0.4rem;  
     font-size: 16;
@@ -191,6 +206,7 @@ button:hover {
 
 body[data-theme='dark'] button {
     background-color: var(--button-bg-dark);
+    color: var(--high-contrast-button-text);
 }
 
 body[data-theme='dark'] button:hover {
@@ -200,4 +216,109 @@ body[data-theme='dark'] button:hover {
 .postTTSButtons {
     display: flex;
     flex-direction: column;
+}
+
+.landing-page {
+    display: flex;
+    height: 100vh;
+}
+
+.left-side {
+    flex: 1;
+    background-image: url('https://t3.ftcdn.net/jpg/00/26/95/44/360_F_26954445_N4aE0zf7PlpWoVdkdLJ5zd7MLiwYRLgf.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--background-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body[data-theme='dark'] .right-side {
+    background-color: var(--high-contrast-bg);
+}
+
+.app-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-light);
+    margin-bottom: 30px;
+    transition: color 0.3s;
+}
+
+body[data-theme='dark'] .app-name {
+    color: var(--high-contrast-text);
+}
+
+.login-form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-field {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body[data-theme='dark'] .input-field {
+    background-color: var(--high-contrast-bg);
+    color: var(--high-contrast-text);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-btn, .signup-btn {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: var(--button-bg-light);
+    color: white;
+}
+
+body[data-theme='dark'] .login-btn,
+body[data-theme='dark'] .signup-btn {
+    background-color: var(--high-contrast-button-bg);
+    color: var(--high-contrast-button-text);
+}
+
+body[data-theme='dark'] .login-btn:hover,
+body[data-theme='dark'] .signup-btn:hover {
+    background-color: var(--high-contrast-button-hover);
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+    background-color: var(--button-hover-light);
+}
+
+body[data-theme='dark'] .login-btn:hover,
+body[data-theme='dark'] .signup-btn:hover {
+    background-color: var(--high-contrast-button-hover);
 }
