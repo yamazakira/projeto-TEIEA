@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 // TEMAS
-type Theme = 'light' | 'dark';
+type Theme = 'dark' | 'light';
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
@@ -12,14 +12,15 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 // PROVEDOR
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>("");
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as Theme;
     if (savedTheme) {
       setTheme(savedTheme);
-    }
+    } 
   }, []);
+  
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
