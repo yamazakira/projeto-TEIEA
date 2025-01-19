@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./paginas/Home";
 import Create from "./paginas/Create";
 import PostPage from "./paginas/postPage";
-import useSpeechRecognition from "./paginas/useSpeechRecognition";
 import LandingPage from "./paginas/LandingPage";
 
 const router = createBrowserRouter([

@@ -4,8 +4,10 @@ import { useParams } from 'react-router-dom';
 import '../globals.css';
 import { HeartIcon, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import textToSpeech from './tts';
+import { useNavigate } from 'react-router-dom';
 
 const PostPage = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [post, setPost] = useState<any>(null);
     const [users, setUsers] = useState<any[]>([]);
@@ -73,6 +75,28 @@ const PostPage = () => {
     if (!post) {
         return <p>Carregando</p>;
     }
+
+    // OBTER POSTS
+    const getPostagens = async () => {
+        try {
+            await api.get("post");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    // ExCLUIR POST
+    const excluirPost = (postId: any, postUserId: any) => {
+        if (postId) {
+            api.delete(`/user/${postUserId}/post/${postId}`, {
+            })
+                .then(() => {
+                    alert("Post excluído com sucesso!");
+                    navigate('/home');
+                    getPostagens();
+                });
+        }
+    };
 
     const user = getUserById(post.userId);
 

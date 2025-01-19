@@ -19,7 +19,7 @@ const App = () => {
   return (
     <ThemeProvider>
       <div className="app-container">
-        <div div className="sidebar-left" >
+        <div className="sidebar-left" >
           <Link to='/home' className='nav-button'>Home</Link>
           <button className="nav-button">Perfil</button>
           <button className="nav-button">Configurações</button>

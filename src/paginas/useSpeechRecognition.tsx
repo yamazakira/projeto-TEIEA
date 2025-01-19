@@ -18,45 +18,44 @@ const useSpeechRecognition = () => {
         }
     });
 
-    // Handle the speech recognition result
     useEffect(() => {
         if (recognition) {
             recognition.onresult = (event: SpeechRecognitionEvent) => {
                 console.log('onresult event: ', event);
-                setText(event.results[0][0].transcript); // Capture the spoken text
-                recognition.stop(); // Stop the recognition after capturing the result
-                setIsListening(false); // Update listening state
+                setText(event.results[0][0].transcript); 
+                recognition.stop(); 
+                setIsListening(false); 
             };
 
-            recognition.onerror = (event: SpeechRecognitionError) => {
-                console.error('Speech recognition error', event);
-                setError(event.error); // Set any recognition errors
-                setIsListening(false); // Stop listening on error
-            };
+            // recognition.onerror = (event: SpeechRecognitionErrorCode) => {
+            //     console.error('Speech recognition error', event);
+            //     setError(event.error);
+            //     setIsListening(false);
+            // };
 
             recognition.onend = () => {
-                setIsListening(false); // Update listening state when recognition ends
+                setIsListening(false);
             };
         }
 
         return () => {
             if (recognition) {
-                recognition.stop(); // Cleanup: stop the recognition when the component unmounts
+                recognition.stop();
             }
         };
     }, [recognition]);
 
     const startListening = () => {
         if (recognition) {
-            setText(''); // Clear the previous text when starting a new recognition
+            setText(''); 
             setIsListening(true);
-            recognition.start(); // Start speech recognition
+            recognition.start();
         }
     };
 
     const stopListening = () => {
         if (recognition) {
-            recognition.stop(); // Stop the recognition when requested
+            recognition.stop();
             setIsListening(false);
         }
     };
